@@ -233,8 +233,8 @@ class HelloPay
     }
 
     /**
-     * @param $payload
-     * @return bool|NotificationData
+     * @param string $payload
+     * @return bool|array
      */
     public function parseNotificationPayload($payload)
     {
@@ -245,7 +245,12 @@ class HelloPay
             return false;
         }
 
-        return new NotificationData($decodedData[0]);
+        $returnData = [];
+        foreach ($decodedData as $item) {
+            $returnData[] = new NotificationData($item);
+        }
+
+        return $returnData;
     }
 
     /**
