@@ -116,7 +116,7 @@ class HelloPayTest extends \PHPUnit_Framework_TestCase
         $response = $helloPay->parseNotificationPayload($payload);
 
         foreach ($data as $key => $value) {
-            $this->assertEquals($value, $response->$key);
+            $this->assertEquals($value, $response[0]->$key);
         }
     }
 

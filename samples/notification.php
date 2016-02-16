@@ -12,7 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $response = $helloPay->parseNotificationPayload($postData);
 
-    var_dump($response->getNewStatus());
-    var_dump($response->getTransactionId());
-    var_dump($response->getMerchantReferenceId());
+    $statuses = ['Completed', 'Cancelled', 'Failed'];
+
+    if ($response && is_array($response)) {
+        foreach ($response as $item) {
+            if (array_key_exists($item->getNewStatus(), $statuses)) {
+                // update your item status
+            }
+        }
+    }
 }
