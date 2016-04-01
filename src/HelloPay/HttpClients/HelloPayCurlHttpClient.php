@@ -112,7 +112,19 @@ class HelloPayCurlHttpClient
         $this->sendRequest();
 
         if ($curlErrorCode = $this->helloPayCurl->errno()) {
-            throw new HelloPaySDKException($this->helloPayCurl->error(), $curlErrorCode);
+            if ($curlErrorCode == 60 || $curlErrorCode == 77) {
+                error_log('Invalid or no certificate authority found, using bundled information');
+                $this->helloPayCurl->setopt(
+                    CURLOPT_CAINFO,
+                    __DIR__ . DIRECTORY_SEPARATOR . 'certs/ca_bundle.crt'
+                );
+
+                $this->sendRequest();
+
+                if ($curlErrorCode = $this->helloPayCurl->errno()) {
+                    throw new HelloPaySDKException($this->helloPayCurl->error(), $curlErrorCode);
+                }
+            }
         }
 
         $rawBody = $this->extractResponseBody();
@@ -146,6 +158,8 @@ class HelloPayCurlHttpClient
         if ($this->sslEnabled) {
             $options[CURLOPT_SSL_VERIFYHOST] = 2;
             $options[CURLOPT_SSL_VERIFYPEER] = true;
+        } else {
+            $options[CURLOPT_SSL_VERIFYPEER] = false;
         }
 
         if ($method !== "GET") {
