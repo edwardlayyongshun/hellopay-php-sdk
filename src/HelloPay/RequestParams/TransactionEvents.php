@@ -36,6 +36,7 @@ class TransactionEvents extends Base
     {
         return array(
             'transactionId',
+            'merchantReferenceId',
             'transactionType',
             'shopConfig'
         );
@@ -43,6 +44,8 @@ class TransactionEvents extends Base
 
     public function getMandatoryKeys()
     {
-        return $this->getAttributeKeys();
+        return array(
+            'shopConfig'
+        );
     }
 }
