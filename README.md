@@ -68,7 +68,9 @@ require_once __DIR__ . '/src/HelloPay/autoload.php';
 
 $helloPay = new \HelloPay\HelloPay([
     'shopConfig' => 'AAEAAADoKU7YCxb_Z9IU2RcBgnEg26xJsHuZCDK7cMK7vnm_vnTzGjLJ/AAEAAAgfi0MlUJfWeGEwG4ujB2VrcfJlF_L0PPqrhIjAnG4R6qiaKAar/a5c4123e5a1f196d896d908cf64764e1',
-    'apiUrl' => 'https://sandbox.hellopay.com.sg',
+    //Please change the apiUrl accordingly to where you are implementing this SDK
+    //Singapore uses https://hellopay.io, Indonesia uses https://id.hellopay.io, Philippines uses https://ph.hellopay.io
+    'apiUrl' => 'https://hellopay.io',
     'sslEnabled' => true
 ]);
 ```
